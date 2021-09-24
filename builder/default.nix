@@ -219,6 +219,9 @@ let
         '';
 
         preFixup = (attrs.preFixup or "") + ''
+          for f in "$out"/bin/*; do
+            patchelf --print-rpath "$f"
+          done
           find $out/{bin,libexec,lib} -type f 2>/dev/null | xargs -r ${removeExpr removeReferences} || true
         '';
 
