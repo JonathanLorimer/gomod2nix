@@ -102,13 +102,15 @@ let
               rm -rf vendor
               ln -s ${vendorEnv} vendor
           fi
-          ls vendor
+          ls -R vendor | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
 
           runHook postConfigure
         '';
 
         buildPhase = attrs.buildPhase or ''
           runHook preBuild
+
+          go env
 
           buildGoDir() {
             local d; local cmd;
