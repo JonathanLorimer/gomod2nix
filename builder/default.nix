@@ -120,6 +120,7 @@ let
             echo "$d" | grep -q "\(/_\|examples\|Godeps\|testdata\)" && return 0
             [ -n "$excludedPackages" ] && echo "$d" | grep -q "$excludedPackages" && return 0
             local OUT
+            echo "go $cmd $buildFlags "''${buildFlagsArray[@]}" -v -p $NIX_BUILD_CORES $d 2>&1"
             if ! OUT="$(go $cmd $buildFlags "''${buildFlagsArray[@]}" -v -p $NIX_BUILD_CORES $d 2>&1)"; then
               echo "in if ! OUT"
               echo "$OUT"
@@ -160,6 +161,7 @@ let
             echo "Building subPackage $pkg"
             buildGoDir install "$pkg"
           done
+          echo
         '' + lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
           # normalize cross-compiled builds w.r.t. native builds
           (
