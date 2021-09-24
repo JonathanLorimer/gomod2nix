@@ -112,12 +112,17 @@ let
           buildGoDir() {
             local d; local cmd;
             cmd="$1"
+            echo "cmd is: $cmd"
             d="$2"
             . $TMPDIR/buildFlagsArray
+            echo "checking '$d'"
+            echo "d is: $d"
             echo "$d" | grep -q "\(/_\|examples\|Godeps\|testdata\)" && return 0
             [ -n "$excludedPackages" ] && echo "$d" | grep -q "$excludedPackages" && return 0
             local OUT
             if ! OUT="$(go $cmd $buildFlags "''${buildFlagsArray[@]}" -v -p $NIX_BUILD_CORES $d 2>&1)"; then
+              echo "in if ! OUT"
+              echo "$OUT"
               if ! echo "$OUT" | grep -qE '(no( buildable| non-test)?|build constraints exclude all) Go (source )?files'; then
                 echo "$OUT" >&2
                 return 1
