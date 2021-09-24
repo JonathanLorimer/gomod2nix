@@ -102,6 +102,7 @@ let
               rm -rf vendor
               ln -s ${vendorEnv} vendor
           fi
+          ls vendor
 
           runHook postConfigure
         '';
