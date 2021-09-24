@@ -138,6 +138,7 @@ let
           getGoDirs() {
             local type;
             type="$1"
+            echo "type: $type"
             if [ -n "$subPackages" ]; then
               echo "$subPackages" | sed "s,\(^\| \),\1./,g"
             else
@@ -183,6 +184,7 @@ let
           runHook preCheck
 
           for pkg in $(getGoDirs test); do
+            echo "testing $pkg"
             buildGoDir test "$pkg"
           done
 
