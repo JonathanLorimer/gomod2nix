@@ -155,6 +155,7 @@ let
             fi
           }
 
+          echo "testing testGetGoDirs"
           for pkg in $(testGetGoDirs ""); do
             echo "would build subPackage $pkg"
           done
