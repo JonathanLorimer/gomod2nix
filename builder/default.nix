@@ -145,6 +145,20 @@ let
             fi
           }
 
+          testGetGoDirs() {
+            local type;
+            type="$1"
+            if [ -n "$subPackages" ]; then
+              echo "$subPackages" | sed "s,\(^\| \),\1./,g"
+            else
+              find . -type f -name \*$type.go -exec dirname {} \; | grep -v "/vendor/" | sort --unique
+            fi
+          }
+
+          for pkg in $(testGetGoDirs ""); do
+            echo "would build subPackage $pkg"
+          done
+
           if (( "''${NIX_DEBUG:-0}" >= 1 )); then
             buildFlagsArray+=(-x)
           fi
