@@ -138,7 +138,7 @@ let
           getGoDirs() {
             local type;
             type="$1"
-            echo "type: $type"
+            echo "type - $type"
             if [ -n "$subPackages" ]; then
               echo "$subPackages" | sed "s,\(^\| \),\1./,g"
             else
