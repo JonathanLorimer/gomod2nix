@@ -166,6 +166,7 @@ let
           # normalize cross-compiled builds w.r.t. native builds
           (
             dir=$GOPATH/bin/${go.GOOS}_${go.GOARCH}
+            echo "$dir"
             if [[ -n "$(shopt -s nullglob; echo $dir/*)" ]]; then
               mv $dir/* $dir/..
             fi
